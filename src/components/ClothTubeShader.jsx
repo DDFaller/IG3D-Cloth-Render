@@ -7,7 +7,7 @@ import tubePerPlyFragmentShader from '../shaders/tubePerPlyFragmentShader.glsl';
 
 import fragmentShaderByPly from '../shaders/clothFragmentColorByPly.glsl'
 import fragmentShaderByFiberType from '../shaders/tubePerPlyFragmentShader.glsl'
-import fragmentShaderByColor from '../shaders/clothFragmentColor.glsl'
+import fragmentShaderByColor from '../shaders/tubeColorFragmentShader.glsl'
 import fragmentShaderPeriod from '../shaders/clothFragmentColorPeriod.glsl'
 
 
@@ -100,31 +100,29 @@ function oscillate(uTime, min, max, period = 10) {
 export default function GpuClothTubesPerPly() {
   const [meshes, setMeshes] = useState(null);
   const [geometries, setGeometries] = useState([])
-    
   const {
     shaderType,
-    useCustomShader,
     modelJson,
-    visiblePly
   } = useControls('Render (local)', {
     shaderType: {
       options: {
         colorByPly: 'colorByPly',
         byFiberType: 'byFiberType',
-        periodFiber: 'periodFiber',
         color: 'color'
       },
       value: 'colorByPly'
     },
-    useCustomShader: { value: true },
     modelJson: {
       options: {
         thread: '1_thread.json',
         fiber: 'fiber.json'
       },
       value: '1_thread.json'
-    },
-    visiblePly: { value: -1, min: -1, max: 19, step: 1 }
+    }
+  });
+
+  const { representationColor } = useControls('Appearance', {
+    representationColor: '#ff0000', 
   });
 
     const {
@@ -280,7 +278,8 @@ export default function GpuClothTubesPerPly() {
             uEllipseSin: { value: ellipseSin },
             uMigrationFrequency: { value: migrationFrequency },
             uWiggleFrequency: { value: hairWiggleFrequency },
-            uWiggleStrength: {value: hairWiggleStrength}
+            uWiggleStrength: { value: hairWiggleStrength },
+            uColor: {value: new THREE.Color(representationColor)}
       }
     });
   }, [shaderType,
@@ -293,9 +292,16 @@ export default function GpuClothTubesPerPly() {
       ellipseSin,
       migrationFrequency,
       hairWiggleFrequency,
-      hairWiggleStrength]);
+      hairWiggleStrength,
+      representationColor]);
     
     
+  useEffect(() => {
+    if (material) {
+      material.uniforms.uColor.value.set(representationColor);
+    }
+  }, [representationColor]);
+
   if (!geometries.length) return null;
   return (
     <group>

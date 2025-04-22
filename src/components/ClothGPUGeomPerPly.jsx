@@ -201,9 +201,6 @@ export default function GpuClothGeomPerFiber() {
             case 'pointsDebug':
                 selectedFragmentShader = fragmentShaderByColor
                 break
-            case 'pointsDebug':
-                selectedFragmentShader = fragmentShaderByColor
-                break
             case 'periodFiber':
                 selectedFragmentShader = fragmentShaderPeriod
                 break

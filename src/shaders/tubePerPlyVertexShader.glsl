@@ -25,6 +25,8 @@ attribute float aFiberType;
 varying vec3 vColor;
 varying float vPlyIndex;
 varying float vFiberType;
+varying vec3 vNormal;
+varying vec3 vPosition;
 
 const float PI = 3.14159265359;
 
@@ -39,13 +41,11 @@ vec3 getCurvePoint(float index) {
 }
 
 void main() {
-    // Base da curva
     vec3 center = getCurvePoint(aCurveIndex);
     vec3 prev = getCurvePoint(aCurveIndex - 1.0);
     vec3 next = getCurvePoint(aCurveIndex + 1.0);
     vec3 tangent = normalize(next - prev);
 
-    // Frame local (N, B)
     vec3 up = vec3(0.0, 1.0, 0.0);
     if (abs(dot(up, tangent)) > 0.99) {
         up = vec3(1.0, 0.0, 0.0);
@@ -53,7 +53,7 @@ void main() {
     vec3 normal = normalize(up - dot(up, tangent) * tangent);
     vec3 binormal = normalize(cross(tangent, normal));
 
-    // Ângulos base
+ 
     float anglePly = 2.0 * PI * aPlyIndex / uFiberCount;
     float angleRadial = 2.0 * PI * aRadialT;
     float twistAngle = uTwistRate * 2.0 * PI * aCurveT;
@@ -61,7 +61,7 @@ void main() {
     float theta = aCurveT * uTwistRate * 2.0 * PI;
 
     // ------------------------------
-    // Ply center ao redor do core (com torção aplicada)
+    // Ply center
     // ------------------------------
     float combinedPlyAngle = anglePly + twistAngle;
 
@@ -113,7 +113,7 @@ void main() {
     }
 
     // ------------------------------
-    // Radial offset (segmento tubular)
+    // Radial offset
     // ------------------------------
     vec3 radialOffset = uFiberRadiusMax * (
         cos(totalAngle) * normal * uEllipseCos +
@@ -121,13 +121,15 @@ void main() {
     );
 
     // ------------------------------
-    // Posição final do vértice
+    // Final vertex pos
     // ------------------------------
     vec3 pos = center + plyCenter + fiberOffset + radialOffset;
 
     vColor = vec3(aCurveT, aRadialT, 1.0 - aCurveT);
     vPlyIndex = aPlyIndex;
     vFiberType = aFiberType;
+    vNormal = normalize(normalMatrix * normal);
+    vPosition = (modelViewMatrix * vec4(pos, 1.0)).xyz;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
