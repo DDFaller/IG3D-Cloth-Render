@@ -120,7 +120,6 @@ export default function GpuClothTubesPerPly() {
     modelJson: {
       options: {
         thread: '1_thread.json',
-        glove: 'glove.json',
         fiber: 'fiber.json'
       },
       value: '1_thread.json'
