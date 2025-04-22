@@ -11,24 +11,24 @@ float random(vec2 co) {
 }
 
 void main() {
-    // ---- Cor base com variação suave por ply ----
-    float hueVariation = random(vec2(vPlyIndex, vPlyIndex + 1.0)) * 0.05; // pequena variação
-    float brightness = 0.9 + random(vPosition.xy + vPlyIndex) * 0.1;
+    // ---- Base color with smooth variation per ply ----
+    float hueVariation = random(vec2(vPlyIndex, vPlyIndex + 1.0)) * 0.05; // small hue shift
+    float brightness = 0.9 + random(vPosition.xy + vPlyIndex) * 0.1; // slight brightness noise
 
     vec3 baseColor = uColor + hueVariation;
     baseColor *= brightness;
 
-    // ---- Efeito de iluminação direcional ----
-    vec3 lightDir = normalize(vec3(0.0, 0.0, 1.0)); // luz de frente (câmera)
+    // ---- Directional lighting effect ----
+    vec3 lightDir = normalize(vec3(0.0, 0.0, 1.0)); // light coming from camera
     float facing = dot(normalize(vNormal), lightDir);
-    float specularHighlight = pow(max(facing, 0.0), 8.0);
+    float specularHighlight = pow(max(facing, 0.0), 8.0); // specular strength
 
-    // ---- Influência do tipo de fibra ----
+    // ---- Influence of fiber type on tone ----
     float fiberTone = 1.0;
     if (int(vFiberType) == 1) {
-        fiberTone = 1.2; // loop = mais saturado
+        fiberTone = 1.2; // loop = slightly more saturated
     } else if (int(vFiberType) == 2) {
-        fiberTone = 0.85; // hair = menos saturado
+        fiberTone = 0.85; // hair = slightly desaturated
     }
 
     vec3 finalColor = baseColor * fiberTone + specularHighlight * 0.2;
