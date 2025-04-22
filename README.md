@@ -5,6 +5,9 @@ This project explores fiber-level cloth rendering directly in the browser using 
 ## 📽️ Presentation and Report
 - 📄 [Final Report (PDF)](./IG3D_DanielFaller.pdf)
 - 🎞️ [Video Presentation](https://drive.google.com/file/d/1nay7CfuIb5muW8W6aiBGfQUvzYCHoj9P/view?usp=sharing)
+- [App](https://ig-3-d-cloth-render.vercel.app/)
+In theory a vercel version will be online.
+
 
 ## 🔧 Features
 - Per-fiber type variation: **migration**, **loop**, and **hair**
