@@ -4,7 +4,7 @@ This project explores fiber-level cloth rendering directly in the browser using 
 
 ## 📽️ Presentation and Report
 - 📄 [Final Report (PDF)](./IG3D_DanielFaller.pdf)
-- 🎞️ [Video Presentation](./VideoPresentation.mp4)
+- 🎞️ [Video Presentation](https://drive.google.com/file/d/1nay7CfuIb5muW8W6aiBGfQUvzYCHoj9P/view?usp=sharing)
 
 ## 🔧 Features
 - Per-fiber type variation: **migration**, **loop**, and **hair**
@@ -39,6 +39,6 @@ This project explores fiber-level cloth rendering directly in the browser using 
     ```bash
     npm run dev
     ```
-    
+
 ### Reference
 Wu, H. and Yuksel, C., “Real-time Rendering of Fiber-level Cloth,” ACM Transactions on Graphics (TOG), 2017.
