@@ -1,12 +1,44 @@
-# React + Vite
+# 🧵 Real-Time Fiber-Level Cloth Rendering in WebGL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project explores fiber-level cloth rendering directly in the browser using **React Three Fiber (R3F)**, **Three.js**, and **WebGL**. Inspired by Wu and Yuksel’s 2017 paper, it aims to replicate procedural fiber geometry while adapting to the limitations of WebGL (e.g., no tessellation shaders).
 
-Currently, two official plugins are available:
+## 📽️ Presentation and Report
+- 📄 [Final Report (PDF)](./IG3D_DanielFaller.pdf)
+- 🎞️ [Video Presentation](./VideoPresentation.mp4)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Features
+- Per-fiber type variation: **migration**, **loop**, and **hair**
+- `plyCenter` and `radialOffset` attributes passed to GPU for procedural offsetting
+- Real-time parameter adjustment (twist, resolution, radius, count)
+- GUI controls using [Leva](https://leva.pmnd.rs/)
+- Optional tube geometry mode with configurable `radialSegments`
+- CPU-based pseudo-tessellation with Catmull-Rom curve interpolation
 
-## Expanding the ESLint configuration
+## 💡 Implementation Highlights
+- **CPU-side Geometry Generation:** Fibers are generated procedurally in JS due to WebGL’s lack of tessellation support.
+- **Dynamic Interpolation:** A resolution parameter controls automatic subdivision of control points, allowing smoother geometry.
+- **Shader Customization:** Vertex shaders handle twist and offset; fragment shaders visualize fiber properties.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚠️ Limitations
+- ❌ No shadow maps or volumetric self-shadowing
+- ❌ No Level of Detail (LoD)
+- ❌ Limited performance scaling for large cloths
+
+## 🚀 How to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DDFaller/IG3D-Cloth-Render.git
+   cd IG3D-Cloth-Render
+   ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Run dev server:
+    ```bash
+    npm run dev
+    ```
+    
+### Reference
+Wu, H. and Yuksel, C., “Real-time Rendering of Fiber-level Cloth,” ACM Transactions on Graphics (TOG), 2017.
