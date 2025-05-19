@@ -53,7 +53,7 @@ export default function GpuClothGeomPerFiber() {
                     glove: 'glove.json',
                     fiber: 'fiber.json'
                 },
-                value: '1_thread.json'
+                value: 'fiber.json'
             }
         }),
         Fiber: folder({

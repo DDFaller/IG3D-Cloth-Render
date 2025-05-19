@@ -117,7 +117,7 @@ export default function GpuClothTubesPerPly() {
         thread: '1_thread.json',
         fiber: 'fiber.json'
       },
-      value: '1_thread.json'
+      value: 'fiber.json'
     }
   });
 

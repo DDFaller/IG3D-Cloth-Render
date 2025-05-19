@@ -1,0 +1,4 @@
+I wasn`t able to send the project via moodle I`m adding two links to download the project code:
+https://drive.google.com/drive/folders/1YwyEwh34Jsb9Uv42oHHHR5sl5L_6evt0?usp=sharing
+and the github one:
+https://github.com/DDFaller/IG3D-Cloth-Render
